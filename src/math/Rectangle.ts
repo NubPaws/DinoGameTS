@@ -1,6 +1,11 @@
 import { Dimension } from "./Dimension.js";
 import { Vector2D } from "./Vector2D.js";
 
+/**
+ * Class for a representation of a rectangle, where
+ * a rectangle is just a position (vector) and size
+ * (dimension).
+ */
 export class Rectangle {
 	
 	public pos: Vector2D;
@@ -11,6 +16,12 @@ export class Rectangle {
 		this.size = new Dimension(width, height);
 	}
 	
+	/**
+	 * Determine whether two rectangles intersects or not.
+	 * 
+	 * @param r the rectangle to check against.
+	 * @returns whether the two rectangles intersect.
+	 */
 	public intersects(r: Rectangle): boolean {
 		const xOverlap =
 			this.pos.x + this.size.width >= r.pos.x &&

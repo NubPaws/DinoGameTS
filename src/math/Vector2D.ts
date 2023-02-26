@@ -1,4 +1,10 @@
 
+/**
+ * A class to represent a 2 dimensional vector.
+ * This vector can be used to determine position,
+ * direction, and what not. This class offer some
+ * basic vector operations as well.
+ */
 export class Vector2D {
 	
 	public x: number;
