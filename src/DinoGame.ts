@@ -1,20 +1,18 @@
 import { GameLoop } from "./engine/GameLoop.js";
+import { KeyCode, Keys } from "./engine/Keys.js";
 import { Color } from "./graphics/Color.js";
 import { Graphics } from "./graphics/Graphics.js";
 
 let gfx = new Graphics("gameCanvas");
-
-gfx.fillBackground(Color.Cyan);
-
-let i = 0;
-const colors = [Color.Black, Color.Brown];
+let keyboard = Keys.instance;
 
 function update() {
-	console.log("Something")
+	if (keyboard.isPressed(KeyCode.A))
+		console.log("A");
 }
 
 function render() {
-	gfx.fillBackground(colors[i++ % 2]);
+	gfx.fillBackground(Color.Grey);
 }
 
 let looper = GameLoop.instance;
