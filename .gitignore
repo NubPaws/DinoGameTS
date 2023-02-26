@@ -1,4 +1,6 @@
 public/engine/
 public/graphics/
+public/entities/
+public/math/
 public/*.js
 favicon.ico
