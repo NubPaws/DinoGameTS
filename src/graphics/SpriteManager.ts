@@ -9,6 +9,10 @@ export type Sprite = HTMLImageElement;
  */
 export class SpriteManager {
 	
+	/* Singleton design patter right here with the _instnace
+	 * and with the get instance() function.
+	 */
+	
 	private static _instance: SpriteManager;
 	
 	public static get instance(): SpriteManager {
