@@ -1,3 +1,4 @@
+import { Rectangle } from "../math/Rectangle.js";
 import { Color } from "./Color.js";
 
 export type Image = CanvasImageSource;
@@ -48,6 +49,17 @@ export class Graphics {
 	}
 	
 	/**
+	 * @param r the rectangle to fill
+	 * @param c the color to fill the rectangle with.
+	 */
+	public fill(r: Rectangle, c: Color): void {
+		this.ctx.beginPath();
+		this.ctx.rect(r.pos.x, r.pos.y, r.size.width, r.size.height);
+		this.ctx.fillStyle = c;
+		this.ctx.fill();
+	}
+	
+	/**
 	 * Draws a rectangle with a specified color and stroke width.
 	 * 
 	 * @param x top left x coordinate.
@@ -62,6 +74,20 @@ export class Graphics {
 		this.ctx.beginPath();
 		this.ctx.rect(x, y, w, h);
 		this.ctx.strokeStyle = color;
+		if (stroke > -1)
+			this.ctx.lineWidth = stroke;
+		this.ctx.stroke();
+	}
+	
+	/**
+	 * @param r the rectangle to draw the outline of.
+	 * @param c the color to draw the outline.
+	 * @param stroke the width of the outline.
+	 */
+	public draw(r: Rectangle, c: Color, stroke = -1): void {
+		this.ctx.beginPath();
+		this.ctx.rect(r.pos.x, r.pos.y, r.size.width, r.size.height);
+		this.ctx.strokeStyle = c;
 		if (stroke > -1)
 			this.ctx.lineWidth = stroke;
 		this.ctx.stroke();

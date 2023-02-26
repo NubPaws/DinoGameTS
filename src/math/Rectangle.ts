@@ -1,5 +1,3 @@
-import { Color } from "../graphics/Color.js";
-import { Graphics } from "../graphics/Graphics.js";
 import { Dimension } from "./Dimension.js";
 import { Vector2D } from "./Vector2D.js";
 
@@ -9,10 +7,8 @@ export class Rectangle {
 	public size: Dimension;
 	
 	constructor(x: number = 0, y: number = 0, width: number = 0, height: number = 0) {
-		this.pos.x = x;
-		this.pos.y = y;
-		this.size.width = width;
-		this.size.height = height;
+		this.pos = new Vector2D(x, y);
+		this.size = new Dimension(width, height);
 	}
 	
 	public intersects(r: Rectangle): boolean {
@@ -27,7 +23,4 @@ export class Rectangle {
 		return xOverlap && yOverlap;
 	}
 	
-	public translate(pos: Vector2D): void {
-		this.pos = this.pos.add(pos);
-	}
 }
