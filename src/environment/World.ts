@@ -1,12 +1,16 @@
 import { Loopable } from "../engine/GameLoop.js";
 import { Handler } from "../engine/Handler.js";
+import { EnemyFactory } from "../entities/Enemy.js";
 import { Entity, EntityID } from "../entities/Entity.js";
 import { Ground } from "../entities/Ground.js";
 import { Player } from "../entities/Player.js";
+import { Color } from "../graphics/Color.js";
 import { Graphics } from "../graphics/Graphics";
+import { Counter } from "../math/Counter.js";
 import { Dimension } from "../math/Dimension.js";
 import { Vector2D } from "../math/Vector2D.js";
 import { GameScreen } from "./GameScreen.js";
+import { HUD } from "./HUD.js";
 
 export class WorldInfo {
 	
@@ -24,7 +28,15 @@ export class World implements Loopable {
 	private ground: Ground;
 	private player: Player;
 	
+	private enemyFactory: EnemyFactory;
+	
 	private handler: Handler<Entity>;
+	
+	private score: Counter;
+	private difficulty: Counter;
+	private hud: HUD;
+	
+	private timer: Counter;
 	
 	constructor() {
 		this.screenSize = GameScreen.size();
@@ -38,19 +50,40 @@ export class World implements Loopable {
 		this.ground = new Ground(this.info.groundHeight, this.screenSize);
 		this.player = new Player(this.info);
 		
+		this.enemyFactory = new EnemyFactory(this.info);
+		
 		this.handler = new Handler<Entity>();
 		
 		this.handler.add(this.ground);
 		this.handler.add(this.player);
+		
+		this.score = new Counter(0);
+		this.difficulty = new Counter(1);
+		this.hud = new HUD(this.score, this.difficulty);
+		
+		this.timer = new Counter(0);
 	}
 	
 	public update(): void {
 		this.checkPlayerCollision();
 		
+		if (this.player.isMoving()) {
+			this.score.inc();
+			if (this.score.value % 500 == 0)
+				this.difficulty.inc();
+			
+			this.timer.inc();
+			if (this.timer.value % 100 == 0)
+				this.generateRandEnemy();
+		}
+		
 		this.handler.update();
+		
+		this.hud.update();
 	}
 	
 	public render(gfx: Graphics): void {
+		gfx.fillBackground(Color.LightBlue);
 		this.handler.render(gfx);
 	}
 	
@@ -61,6 +94,18 @@ export class World implements Loopable {
 				if (this.player.getBounds().intersects(e.getBounds()))
 					this.player.hit(e);
 		}
+	}
+	
+	private generateRandEnemy(): void {
+		const speed = this.difficulty.value * 5;
+		this.handler.add(this.enemyFactory.generateRandom(speed));
+	}
+	
+	public reset(): void {
+		this.difficulty.value = 1;
+		this.score.value = 0;
+		this.timer.value = 0;
+		this.player.reset();
 	}
 	
 }

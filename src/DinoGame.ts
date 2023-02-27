@@ -7,34 +7,35 @@ import { Color } from "./graphics/Color.js";
 import { Graphics } from "./graphics/Graphics.js";
 import { SpriteManager } from "./graphics/SpriteManager.js";
 
-// Setup the graphics class.
-let gfx = new Graphics(GameScreen.CANVAS_ID);
-// Setup the keyboard listener.
-let keyboard = Keys.instance;
+/**
+ * Setup the graphics class, the keyboard listener,
+ * the sprites manager for the game and the game loop.
+ */
+const gfx = new Graphics(GameScreen.CANVAS_ID);
+const keyboard = Keys.instance;
+const sprites = SpriteManager.instance;
 
-// Setup the sprites for the game.
-let sprites = SpriteManager.instance;
 sprites.addClass("clouds");
 sprites.addId("playerStanding");
 sprites.addClass("playerRunning");
-sprites.addId("tallEnenmy");
+sprites.addId("tallEnemy");
 sprites.addId("shortEnemy");
 sprites.addId("flyingEnemy");
 sprites.addId("gameOver");
 
-let world = new World();
+const world = new World();
 
-let looper = GameLoop.instance;
+const looper = GameLoop.instance;
 
 looper.updateFunction = () => {
-	world.update();
+	if (keyboard.isClicked(KeyCode.Enter))
+		world.reset();
 	
+	world.update();
 	keyboard.update();
 };
 
 looper.renderFunction = () => {
-	gfx.fillBackground(Color.LightBlue);
-	
 	world.render(gfx);
 };
 

@@ -8,7 +8,7 @@ import { Entity, EntityID } from "./Entity.js";
 
 export class Enemy extends Entity {
 	
-	private img;
+	private img: Sprite;
 	
 	constructor(x: number, y:number, width: number, height: number, img: Sprite, speed: Vector2D) {
 		super(x, y, width, height, EntityID.Enemy);
@@ -63,11 +63,11 @@ export class EnemyFactory {
 			width = 32;
 			height = 64;
 			image = this.tallImage;
-		case EnemyType.Tall:
+		case EnemyType.Short:
 			width = 48;
 			height = 32;
 			image = this.shortImage;
-		case EnemyType.Tall:
+		case EnemyType.Flying:
 			width = 32;
 			height = 24;
 			image = this.flyingImage;
@@ -81,6 +81,10 @@ export class EnemyFactory {
 			y -= (Math.random() * 120 + 70);
 		
 		return new Enemy(x, y, width, height, image, dir);
+	}
+	
+	public generateRandom(speed: number): Enemy {
+		return this.generate(speed, Math.round(Math.random() * 3));
 	}
 	
 }
