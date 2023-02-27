@@ -88,7 +88,8 @@ export class GameLoop {
 		 * We get the difference represented as deltaTime. Using the global
 		 * static variable msToUpdate to find out how many times we should
 		 * call the logic update function. THIS isolates the logic from the
-		 * framerate of the game. */
+		 * framerate of the game.
+		 */
 		
 		const looper = GameLoop.instance;
 		
