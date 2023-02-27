@@ -4,7 +4,7 @@ import { Dimension } from "../math/Dimension";
  * Store all the information about the screen in one place
  * to make accessing to it easier and more concise.
  */
-export namespace Screen {
+export namespace GameScreen {
 	
 	export const CANVAS_ID = "gameCanvas";
 	
