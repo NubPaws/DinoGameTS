@@ -12,7 +12,6 @@ export class Player extends Entity {
 	private alive: boolean;
 	private moving: boolean;
 	private jumping: boolean;
-	private jumpingTimer: number;
 	
 	private jumpingForce: Vector2D;
 	
@@ -23,7 +22,7 @@ export class Player extends Entity {
 	
 	private keyboard: Keys;
 	
-	constructor(ground: Ground, worldInfo: WorldInfo) {
+	constructor(worldInfo: WorldInfo) {
 		super(0, 0, 28, 64, EntityID.Player);
 		
 		this.jumpingForce = new Vector2D(0, -10);
@@ -31,8 +30,8 @@ export class Player extends Entity {
 		const sm = SpriteManager.instance;
 		this.standingSprite = sm.get("playerStanding");
 		this.runningAnimation = new Animation(8,
-			"playerRunning_1", "playerRunning_2",
-			"playerRunning_3", "playerRunning_4"
+			"playerRunning0", "playerRunning1",
+			"playerRunning2", "playerRunning3"
 		);
 		
 		this.worldInfo = worldInfo;
@@ -43,7 +42,7 @@ export class Player extends Entity {
 	}
 	
 	private reset(): void {
-		this.bounds.pos = new Vector2D(25, this.worldInfo.groundHeight - 64 * 2);
+		this.bounds.pos = this.worldInfo.spawnPoint;
 		
 		this.alive = true;
 		this.moving = false;
@@ -74,24 +73,36 @@ export class Player extends Entity {
 		if (!this.jumping)
 			return;
 		
-		this.direction.add(this.worldInfo.gravity);
+		const scalar = this.keyboard.isPressed(KeyCode.Space) ? 0.6 : 1;
+		this.direction.add(this.worldInfo.gravity.toScaled(scalar));
 	}
 	
 	public render(gfx: Graphics): void {
-		if (!this.moving) {
+		if (!this.moving)
 			gfx.drawImageInBounds(this.standingSprite, this.bounds);
-		}
+		else
+			gfx.drawImageInBounds(this.runningAnimation.current, this.bounds);
 	}
 	
 	public hit(e: Entity): void {
 		if (e.is(EntityID.Ground)) {
 			
+			this.jumping = false;
+			this.bounds.pos.y = e.getBounds().pos.y - this.bounds.size.height;
+			this.direction.set(Vector2D.ZERO);
+			
 		} else if (e.is(EntityID.Enemy)) {
+			
 			this.moving = false;
 			this.alive = false;
 			this.jumping = false;
 			this.direction.set(Vector2D.ZERO);
+			
 		}
+	}
+	
+	public isAlive(): boolean {
+		return this.alive;
 	}
 	
 }

@@ -32,7 +32,7 @@ looper.updateFunction = () => {
 };
 
 looper.renderFunction = () => {
-	gfx.fillBackground(Color.Grey);
+	gfx.fillBackground(Color.LightBlue);
 	
 	world.render(gfx);
 };

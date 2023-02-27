@@ -47,7 +47,7 @@ export class SpriteManager {
 		const imgs = Array.from(document.getElementsByClassName(imgClass)) as HTMLImageElement[];
 		
 		for (let i = 0; i < imgs.length; i++)
-			this.sprites.set(`${imgClass}_${i}`, imgs[i]);
+			this.sprites.set(`${imgClass}${i}`, imgs[i]);
 	}
 	
 	/**

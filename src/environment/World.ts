@@ -1,4 +1,6 @@
 import { Loopable } from "../engine/GameLoop.js";
+import { Handler } from "../engine/Handler.js";
+import { Entity, EntityID } from "../entities/Entity.js";
 import { Ground } from "../entities/Ground.js";
 import { Player } from "../entities/Player.js";
 import { Graphics } from "../graphics/Graphics";
@@ -8,11 +10,7 @@ export class WorldInfo {
 	
 	public readonly groundHeight: number;
 	public readonly gravity: Vector2D;
-	
-	constructor(groundHeight: number, gravity: Vector2D) {
-		this.groundHeight = groundHeight;
-		this.gravity = gravity;
-	}
+	public readonly spawnPoint: Vector2D;
 	
 }
 
@@ -23,25 +21,45 @@ export class World implements Loopable {
 	private ground: Ground;
 	private player: Player;
 	
+	private handler: Handler<Entity>;
+	
 	constructor(gfx: Graphics) {
-		this.info = new WorldInfo(100, new Vector2D(0.68));
+		this.info = {
+			groundHeight: 100,
+			gravity: new Vector2D(0, 0.68),
+			spawnPoint: new Vector2D(25, gfx.height - 64 * 3)
+		};
 		
 		this.ground = new Ground(this.info.groundHeight, gfx);
-		this.player = new Player(this.ground, this.info);
+		this.player = new Player(this.info);
+		
+		this.handler = new Handler<Entity>();
+		
+		this.handler.add(this.ground);
+		this.handler.add(this.player);
 	}
 	
 	public update(): void {
 		
-		this.ground.update();
-		this.player.update();
+		this.checkPlayerCollision();
+		
+		this.handler.update();
 		
 	}
 	
 	public render(gfx: Graphics): void {
 		
-		this.ground.render(gfx);
-		this.player.render(gfx);
+		this.handler.render(gfx);
 		
+	}
+	
+	private checkPlayerCollision(): void {
+		for (let i = 0; i < this.handler.length; i++) {
+			const e = this.handler.get(i);
+			if (!e.is(EntityID.Player))
+				if (this.player.getBounds().intersects(e.getBounds()))
+					this.player.hit(e);
+		}
 	}
 	
 }
