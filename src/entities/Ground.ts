@@ -1,5 +1,7 @@
+import { GameScreen } from "../environment/GameScreen.js";
 import { Color } from "../graphics/Color.js";
 import { Graphics } from "../graphics/Graphics.js";
+import { Dimension } from "../math/Dimension.js";
 import { Rectangle } from "../math/Rectangle.js";
 import { Entity, EntityID } from "./Entity.js";
 
@@ -18,14 +20,14 @@ export class Ground extends Entity {
 	
 	/**
 	 * @param height the height the ground should be.
-	 * @param gfx the graphics instance of the game.
+	 * @param screenSize the size of the screen.
 	 */
-	constructor(height: number, gfx: Graphics) {
-		super(0, gfx.height - height, gfx.width, height, EntityID.Ground);
+	constructor(height: number, screenSize: Dimension) {
+		super(0, screenSize.height - height, screenSize.width, height, EntityID.Ground);
 		
 		// Set the upper portion of the ground relative to the height.
 		this.upperBounds = new Rectangle(
-			0, gfx.height - height, gfx.width, height * 0.125
+			0, screen.height - height, screen.width, height * 0.125
 		);
 		
 		this.upperColor = Color.Green;

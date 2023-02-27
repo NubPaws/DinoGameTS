@@ -1,13 +1,14 @@
 import { GameLoop } from "./engine/GameLoop.js";
 import { KeyCode, Keys } from "./engine/Keys.js";
 import { Ground } from "./entities/Ground.js";
+import { GameScreen } from "./environment/GameScreen.js";
 import { World } from "./environment/World.js";
 import { Color } from "./graphics/Color.js";
 import { Graphics } from "./graphics/Graphics.js";
 import { SpriteManager } from "./graphics/SpriteManager.js";
 
 // Setup the graphics class.
-let gfx = new Graphics("gameCanvas");
+let gfx = new Graphics(GameScreen.CANVAS_ID);
 // Setup the keyboard listener.
 let keyboard = Keys.instance;
 
@@ -21,7 +22,7 @@ sprites.addId("shortEnemy");
 sprites.addId("flyingEnemy");
 sprites.addId("gameOver");
 
-let world = new World(gfx);
+let world = new World();
 
 let looper = GameLoop.instance;
 
