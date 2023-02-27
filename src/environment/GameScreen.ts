@@ -1,4 +1,4 @@
-import { Dimension } from "../math/Dimension";
+import { Dimension } from "../math/Dimension.js";
 
 /**
  * Store all the information about the screen in one place
@@ -7,6 +7,8 @@ import { Dimension } from "../math/Dimension";
 export namespace GameScreen {
 	
 	export const CANVAS_ID = "gameCanvas";
+	
+	export const HUD_ID = "score";
 	
 	let _size: Dimension;
 	

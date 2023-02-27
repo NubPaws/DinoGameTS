@@ -33,7 +33,7 @@ export class SpriteManager {
 	 * @param imgId the id to load the image from (will be used as key).
 	 */
 	public addId(imgId: string): void {
-		this.sprites.set(imgId, document.getElementById(imgId) as HTMLImageElement);
+		this.sprites.set(imgId, document.getElementById(imgId) as Sprite);
 	}
 	
 	/**
@@ -44,7 +44,7 @@ export class SpriteManager {
 	 * @param imgClass the images class (will be used as key).
 	 */
 	public addClass(imgClass: string): void {
-		const imgs = Array.from(document.getElementsByClassName(imgClass)) as HTMLImageElement[];
+		const imgs = Array.from(document.getElementsByClassName(imgClass)) as Sprite[];
 		
 		for (let i = 0; i < imgs.length; i++)
 			this.sprites.set(`${imgClass}${i}`, imgs[i]);
@@ -54,7 +54,7 @@ export class SpriteManager {
 	 * @param key the key to get the image.
 	 * @returns the image element under the same tag.
 	 */
-	public get(key: string): HTMLImageElement {
+	public get(key: string): Sprite {
 		return this.sprites.get(key);
 	}
 	

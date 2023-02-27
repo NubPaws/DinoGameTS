@@ -27,7 +27,7 @@ export class Ground extends Entity {
 		
 		// Set the upper portion of the ground relative to the height.
 		this.upperBounds = new Rectangle(
-			0, screen.height - height, screen.width, height * 0.125
+			0, screenSize.height - height, screenSize.width, height * 0.125
 		);
 		
 		this.upperColor = Color.Green;

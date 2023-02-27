@@ -10,11 +10,11 @@ export class Enemy extends Entity {
 	
 	private img: Sprite;
 	
-	constructor(x: number, y:number, width: number, height: number, img: Sprite, speed: Vector2D) {
+	constructor(x: number, y: number, width: number, height: number, img: Sprite, speed: Vector2D) {
 		super(x, y, width, height, EntityID.Enemy);
 		
 		this.img = img;
-		this.direction = speed.toFlipped();
+		this.direction = speed;
 	}
 	
 	public update(): void {
@@ -73,18 +73,20 @@ export class EnemyFactory {
 			image = this.flyingImage;
 		}
 		
-		let dir = new Vector2D(0, -speed);
+		let dir = new Vector2D(-speed, 0);
 		let x = this.screenSize.width;
 		let y = this.screenSize.height - this.worldInfo.groundHeight;
 		
 		if (type === EnemyType.Flying)
 			y -= (Math.random() * 120 + 70);
 		
-		return new Enemy(x, y, width, height, image, dir);
+		const e = new Enemy(x, y, width, height, image, dir);
+		console.log(e);
+		return e;
 	}
 	
 	public generateRandom(speed: number): Enemy {
-		return this.generate(speed, Math.round(Math.random() * 3));
+		return this.generate(speed, Math.floor(Math.random() * 3));
 	}
 	
 }

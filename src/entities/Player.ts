@@ -5,23 +5,34 @@ import { Graphics } from "../graphics/Graphics.js";
 import { Sprite, SpriteManager } from "../graphics/SpriteManager.js";
 import { Vector2D } from "../math/Vector2D.js";
 import { Entity, EntityID } from "./Entity.js";
-import { Ground } from "./Ground.js";
 
+/**
+ * Class for the player instance. There will be probably only one
+ * instance in the game.
+ */
 export class Player extends Entity {
 	
+	// Flags about the playing.
 	private alive: boolean;
 	private moving: boolean;
 	private jumping: boolean;
 	
+	// The force of the jump of the player.
 	private jumpingForce: Vector2D;
 	
+	// The sprites for the player.
 	private standingSprite: Sprite;
 	private runningAnimation: Animation;
 	
+	// Information about the world.
 	private worldInfo: WorldInfo;
 	
+	// Keys instance for user input in the class.
 	private keyboard: Keys;
 	
+	/**
+	 * @param worldInfo the info about the world to create the player.
+	 */
 	constructor(worldInfo: WorldInfo) {
 		super(0, 0, 28, 64, EntityID.Player);
 		
@@ -41,7 +52,7 @@ export class Player extends Entity {
 		this.reset();
 	}
 	
-	private reset(): void {
+	public reset(): void {
 		this.bounds.pos = this.worldInfo.spawnPoint;
 		
 		this.alive = true;
@@ -66,7 +77,6 @@ export class Player extends Entity {
 		this.jumpingLogic();
 		
 		this.bounds.pos.add(this.direction);
-		
 	}
 	
 	private jumpingLogic(): void {
@@ -103,6 +113,10 @@ export class Player extends Entity {
 	
 	public isAlive(): boolean {
 		return this.alive;
+	}
+	
+	public isMoving(): boolean {
+		return this.moving;
 	}
 	
 }
