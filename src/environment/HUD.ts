@@ -11,6 +11,10 @@ export class HUD implements Updatable {
 	private difficulty: Counter;
 	private hudText: HTMLSpanElement;
 	
+	/**
+	 * @param score the score counter.
+	 * @param difficulty the difficulty counter.
+	 */
 	constructor(score: Counter, difficulty: Counter) {
 		this.score = score;
 		this.difficulty = difficulty;
@@ -19,9 +23,9 @@ export class HUD implements Updatable {
 	
 	public update(): void {
 		let text = "";
-		text += `Score: ${this.score}`;
+		text += `Score: ${this.score.value}`;
 		text += `<br />`;
-		text += `Difficulty: ${this.difficulty}`;
+		text += `Difficulty: ${this.difficulty.value}`;
 		this.hudText.innerHTML = text;
 	}
 	
