@@ -1,7 +1,7 @@
 import { Color } from "../graphics/Color.js";
 import { Graphics } from "../graphics/Graphics.js";
 import { Rectangle } from "../math/Rectangle.js";
-import { Entity } from "./Entity.js";
+import { Entity, EntityID } from "./Entity.js";
 
 /**
  * Represents the ground of the game. The base from where nothing
@@ -21,7 +21,7 @@ export class Ground extends Entity {
 	 * @param gfx the graphics instance of the game.
 	 */
 	constructor(height: number, gfx: Graphics) {
-		super(0, gfx.height - height, gfx.width, height);
+		super(0, gfx.height - height, gfx.width, height, EntityID.Ground);
 		
 		// Set the upper portion of the ground relative to the height.
 		this.upperBounds = new Rectangle(
@@ -40,5 +40,7 @@ export class Ground extends Entity {
 		gfx.draw(this.upperBounds, Color.Black, 3);
 		gfx.fill(this.upperBounds, this.upperColor);
 	}
+	
+	public hit(e: Entity): void { }
 	
 }

@@ -118,6 +118,10 @@ export class Graphics {
 		this.ctx.drawImage(img, x, y, w, h);
 	}
 	
+	public drawImageInBounds(img: Image, bounds: Rectangle): void {
+		this.ctx.drawImage(img, bounds.pos.x, bounds.pos.y, bounds.size.width, bounds.size.height);
+	}
+	
 	/**
 	 * Fills the entire background of the canvas with a specific color.
 	 * 
@@ -151,6 +155,10 @@ export class Graphics {
 			||  (0 <= x + w && x + w <= this.width))
 			&& ((0 <= y     && y     <= this.height)
 			||  (0 <= y + h && y + h <= this.height));
+	}
+	
+	public areBoundsIn(bounds: Rectangle): boolean {
+		return this.isVisible(bounds.pos.x, bounds.pos.y, bounds.size.width, bounds.size.height);
 	}
 	
 	public get canvas(): HTMLCanvasElement {

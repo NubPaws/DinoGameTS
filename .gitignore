@@ -2,5 +2,6 @@ public/engine/
 public/graphics/
 public/entities/
 public/math/
+public/environment/
 public/*.js
 favicon.ico

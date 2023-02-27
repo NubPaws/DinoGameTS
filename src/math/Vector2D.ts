@@ -7,6 +7,8 @@
  */
 export class Vector2D {
 	
+	public static readonly ZERO = new Vector2D();
+	
 	public x: number;
 	public y: number;
 	
@@ -15,12 +17,24 @@ export class Vector2D {
 		this.y = y;
 	}
 	
-	public add(v: Vector2D): Vector2D {
-		return new Vector2D(this.x + v.x, this.y + v.y);
+	public add(v: Vector2D): void {
+		this.x += v.x;
+		this.y += v.y;
 	}
 	
-	public flip(): Vector2D {
-		return new Vector2D(-this.x, -this.y);
+	public flip(): void {
+		this.x = -this.x;
+		this.y = -this.y;
+	}
+	
+	public set(v: Vector2D): void {
+		this.x = v.x;
+		this.y = v.y;
+	}
+	
+	public scale(scalar: number): void {
+		this.x *= scalar;
+		this.y *= scalar;
 	}
 	
 }
