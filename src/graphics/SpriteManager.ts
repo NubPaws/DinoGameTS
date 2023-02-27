@@ -30,11 +30,10 @@ export class SpriteManager {
 	/**
 	 * Add an image into the instance.
 	 * 
-	 * @param key the key for the image.
-	 * @param imgId the id to load the image from.
+	 * @param imgId the id to load the image from (will be used as key).
 	 */
-	public addId(key: string, imgId: string): void {
-		this.sprites.set(key, document.getElementById(imgId) as HTMLImageElement);
+	public addId(imgId: string): void {
+		this.sprites.set(imgId, document.getElementById(imgId) as HTMLImageElement);
 	}
 	
 	/**
@@ -42,14 +41,13 @@ export class SpriteManager {
 	 * Will load the images with the key_i where i is the index of each image
 	 * when reading them from the document.
 	 * 
-	 * @param key the key for the list of images.
-	 * @param imgClass the images.
+	 * @param imgClass the images class (will be used as key).
 	 */
-	public addClass(key: string, imgClass: string): void {
+	public addClass(imgClass: string): void {
 		const imgs = Array.from(document.getElementsByClassName(imgClass)) as HTMLImageElement[];
 		
 		for (let i = 0; i < imgs.length; i++)
-			this.sprites.set(`${key}_${i}`, imgs[i]);
+			this.sprites.set(`${imgClass}_${i}`, imgs[i]);
 	}
 	
 	/**
