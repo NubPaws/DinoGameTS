@@ -1,3 +1,4 @@
+import { Graphics } from "../graphics/Graphics.js";
 
 type VoidFunc = () => void;
 
@@ -155,5 +156,40 @@ export class GameLoop {
 		GameLoop.updateRate = upRate;
 		GameLoop.msToUpdate = 1000 / GameLoop.updateRate;
 	}
+	
+}
+
+/**
+ * For any instance that can be updated.
+ */
+export interface Updatable {
+	
+	/**
+	 * Updates the instance logically.
+	 */
+	update(): void;
+	
+}
+
+/**
+ * For any instance that can be rendered to the screen.
+ */
+export interface Renderable {
+	
+	/**
+	 * Draws the current instance on to the screen.
+	 * 
+	 * @param gfx The graphics instance to draw the current instance
+	 * to the screen.
+	 */
+	render(gfx: Graphics): void;
+	
+}
+
+/**
+ * For items that should be both updated and rendered based on
+ * the game loop.
+ */
+export interface Loopable extends Updatable, Renderable {
 	
 }
