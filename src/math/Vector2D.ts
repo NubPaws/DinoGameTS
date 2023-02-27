@@ -22,9 +22,17 @@ export class Vector2D {
 		this.y += v.y;
 	}
 	
+	public toAdded(v: Vector2D): Vector2D {
+		return new Vector2D(this.x + v.x, this.y + v.y);
+	}
+	
 	public flip(): void {
 		this.x = -this.x;
 		this.y = -this.y;
+	}
+	
+	public toFlipped(): Vector2D {
+		return new Vector2D(-this.x, -this.y);
 	}
 	
 	public set(v: Vector2D): void {
@@ -35,6 +43,10 @@ export class Vector2D {
 	public scale(scalar: number): void {
 		this.x *= scalar;
 		this.y *= scalar;
+	}
+	
+	public toScaled(scalar: number): Vector2D {
+		return new Vector2D(this.x * scalar, this.y * scalar);
 	}
 	
 }
