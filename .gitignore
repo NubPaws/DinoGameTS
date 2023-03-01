@@ -1,8 +1,3 @@
-public/engine/
-public/graphics/
-public/entities/
-public/math/
-public/environment/
-public/screens/
-public/*.js
-favicon.ico
+src/
+tsconfig.json
+run_server.sh
