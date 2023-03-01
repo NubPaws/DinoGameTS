@@ -14,6 +14,11 @@ import { Clouds } from "./Clouds.js";
 import { GameScreen } from "./GameScreen.js";
 import { HUD } from "./HUD.js";
 
+/**
+ * Simple class to hold constants about our world like the ground
+ * height and the gravity. Those can actually be changing variables,
+ * but in this game they should stay constant.
+ */
 export class WorldInfo {
 	
 	public readonly groundHeight: number;
@@ -22,6 +27,10 @@ export class WorldInfo {
 	
 }
 
+/**
+ * Class to handle our world, the movement and
+ * the entities in our world.
+ */
 export class World implements Loopable {
 	
 	private info: WorldInfo;

@@ -1,4 +1,9 @@
 
+/**
+ * Enum to hold information about colors that we are
+ * using frequently. These colors in this game can be
+ * used for debugging purposes or to draw the ground.
+ */
 export enum Color {
 	Black = "#000000",
 	White = "#FFFFFF",
