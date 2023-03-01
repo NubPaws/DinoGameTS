@@ -8,7 +8,7 @@ import { Vector2D } from "../math/Vector2D.js";
  * is a small (and simple) game we have only 3 enemies.
  */
 export enum EntityID {
-	Player, Ground, Enemy
+	Player, Ground, Enemy, Clouds
 }
 
 /**

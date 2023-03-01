@@ -8,8 +8,8 @@ import { Vector2D } from "./Vector2D.js";
  */
 export class Rectangle {
 	
-	public _pos: Vector2D;
-	public _size: Dimension;
+	private _pos: Vector2D;
+	private _size: Dimension;
 	
 	constructor(x: number = 0, y: number = 0, width: number = 0, height: number = 0) {
 		this._pos = new Vector2D(x, y);

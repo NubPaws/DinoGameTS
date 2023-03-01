@@ -10,6 +10,7 @@ import { Counter } from "../math/Counter.js";
 import { Dimension } from "../math/Dimension.js";
 import { Vector2D } from "../math/Vector2D.js";
 import { GameOver } from "../screens/GameOver.js";
+import { Clouds } from "./Clouds.js";
 import { GameScreen } from "./GameScreen.js";
 import { HUD } from "./HUD.js";
 
@@ -28,6 +29,7 @@ export class World implements Loopable {
 	
 	private ground: Ground;
 	private player: Player;
+	private clouds: Clouds;
 	
 	private enemyFactory: EnemyFactory;
 	
@@ -52,13 +54,11 @@ export class World implements Loopable {
 		
 		this.ground = new Ground(this.info.groundHeight, this.screenSize);
 		this.player = new Player(this.info);
+		this.clouds = new Clouds(0.1);
 		
 		this.enemyFactory = new EnemyFactory(this.info);
 		
 		this.handler = new Handler<Entity>();
-		
-		this.handler.add(this.ground);
-		this.handler.add(this.player);
 		
 		this.score = new Counter(0);
 		this.difficulty = new Counter(1);
@@ -67,6 +67,8 @@ export class World implements Loopable {
 		this.timer = new Counter(0);
 		
 		this.gameOver = new GameOver();
+		
+		this.reset();
 	}
 	
 	public update(): void {
@@ -75,11 +77,13 @@ export class World implements Loopable {
 		if (this.player.isMoving()) {
 			this.score.inc();
 			if (this.score.value % 500 == 0)
-				this.difficulty.inc();
+				this.nextLevel();
 			
 			this.timer.inc();
 			if (this.timer.value % 100 == 0)
 				this.generateRandEnemy();
+			
+			this.clouds.update();
 		}
 		
 		if (this.player.isAlive())
@@ -91,6 +95,8 @@ export class World implements Loopable {
 	public render(gfx: Graphics): void {
 		gfx.fillBackground(Color.LightBlue);
 		this.handler.render(gfx);
+		
+		this.clouds.render(gfx);
 		
 		if (!this.player.isAlive())
 			this.gameOver.render(gfx);
@@ -105,8 +111,17 @@ export class World implements Loopable {
 		}
 	}
 	
+	private generateSpeed(): number {
+		return this.difficulty.value * 5;
+	}
+	
+	private nextLevel(): void {
+		this.difficulty.inc();
+		this.clouds.setRelativeSpeedX(this.generateSpeed());
+	}
+	
 	private generateRandEnemy(): void {
-		const speed = this.difficulty.value * 5;
+		const speed = this.generateSpeed();
 		this.handler.add(this.enemyFactory.generateRandom(speed));
 	}
 	
@@ -115,9 +130,12 @@ export class World implements Loopable {
 		this.score.value = 0;
 		this.timer.value = 0;
 		this.player.reset();
+		
 		this.handler.clear();
 		this.handler.add(this.ground);
 		this.handler.add(this.player);
+		
+		this.clouds.setRelativeSpeedX(this.generateSpeed());
 	}
 	
 }
