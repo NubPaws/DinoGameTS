@@ -9,6 +9,7 @@ import { Graphics } from "../graphics/Graphics";
 import { Counter } from "../math/Counter.js";
 import { Dimension } from "../math/Dimension.js";
 import { Vector2D } from "../math/Vector2D.js";
+import { GameOver } from "../screens/GameOver.js";
 import { GameScreen } from "./GameScreen.js";
 import { HUD } from "./HUD.js";
 
@@ -38,6 +39,8 @@ export class World implements Loopable {
 	
 	private timer: Counter;
 	
+	private gameOver: GameOver;
+	
 	constructor() {
 		this.screenSize = GameScreen.size();
 		
@@ -62,6 +65,8 @@ export class World implements Loopable {
 		this.hud = new HUD(this.score, this.difficulty);
 		
 		this.timer = new Counter(0);
+		
+		this.gameOver = new GameOver();
 	}
 	
 	public update(): void {
@@ -86,6 +91,9 @@ export class World implements Loopable {
 	public render(gfx: Graphics): void {
 		gfx.fillBackground(Color.LightBlue);
 		this.handler.render(gfx);
+		
+		if (!this.player.isAlive())
+			this.gameOver.render(gfx);
 	}
 	
 	private checkPlayerCollision(): void {

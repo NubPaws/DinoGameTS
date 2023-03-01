@@ -3,5 +3,6 @@ public/graphics/
 public/entities/
 public/math/
 public/environment/
+public/screens/
 public/*.js
 favicon.ico
