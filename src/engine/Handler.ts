@@ -54,4 +54,11 @@ export class Handler<T extends Loopable> implements Loopable {
 		return this.items[i];
 	}
 	
+	/**
+	 * Clears the handler of all elements.
+	 */
+	public clear(): void {
+		this.items = new Array<T>();
+	}
+	
 }

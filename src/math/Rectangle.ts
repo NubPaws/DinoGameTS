@@ -8,12 +8,12 @@ import { Vector2D } from "./Vector2D.js";
  */
 export class Rectangle {
 	
-	public pos: Vector2D;
-	public size: Dimension;
+	public _pos: Vector2D;
+	public _size: Dimension;
 	
 	constructor(x: number = 0, y: number = 0, width: number = 0, height: number = 0) {
-		this.pos = new Vector2D(x, y);
-		this.size = new Dimension(width, height);
+		this._pos = new Vector2D(x, y);
+		this._size = new Dimension(width, height);
 	}
 	
 	/**
@@ -32,6 +32,23 @@ export class Rectangle {
 			r.pos.y + r.size.height >= this.pos.y;
 		
 		return xOverlap && yOverlap;
+	}
+	
+	public get pos(): Vector2D {
+		return this._pos;
+	}
+	
+	public set pos(v: Vector2D) {
+		this._pos.set(v);
+	}
+	
+	public get size(): Dimension {
+		return this._size;
+	}
+	
+	public set size(s: Dimension) {
+		this._size.width = s.width;
+		this._size.height = s.height;
 	}
 	
 }

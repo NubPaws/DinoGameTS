@@ -77,7 +77,8 @@ export class World implements Loopable {
 				this.generateRandEnemy();
 		}
 		
-		this.handler.update();
+		if (this.player.isAlive())
+			this.handler.update();
 		
 		this.hud.update();
 	}
@@ -106,6 +107,9 @@ export class World implements Loopable {
 		this.score.value = 0;
 		this.timer.value = 0;
 		this.player.reset();
+		this.handler.clear();
+		this.handler.add(this.ground);
+		this.handler.add(this.player);
 	}
 	
 }
