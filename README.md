@@ -1,7 +1,6 @@
 # Dino Game TS
 
-## Table of Contents
-- [Table of Contents](#table-of-contents)
+Table of Contents
 - [Motivation](#motivation)
 - [Playing the Game](#playing-the-game)
 - [Setup](#setup)
