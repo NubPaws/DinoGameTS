@@ -49,6 +49,10 @@ export class Player extends Entity {
 		
 		this.keyboard = Keys.instance;
 		
+		this.alive = true;
+		this.moving = false;
+		this.jumping = false;
+		
 		this.reset();
 	}
 	

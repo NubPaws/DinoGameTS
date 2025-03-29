@@ -1,8 +1,5 @@
-public/engine/
-public/graphics/
-public/entities/
-public/math/
-public/environment/
-public/screens/
-public/*.js
+public/
+!public/index.html
+!public/styles.css
 favicon.ico
+node_modules/

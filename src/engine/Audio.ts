@@ -26,6 +26,7 @@ export class AudioPlayer {
 	 */
 	constructor(audioFile: string, volume: number) {
 		this.audio = new Audio(audioFile);
+		this.volume = 0;
 		this.setVolume(volume);
 		this.playing = PlayingState.Stopped;
 		

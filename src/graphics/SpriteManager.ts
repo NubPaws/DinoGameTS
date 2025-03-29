@@ -55,7 +55,7 @@ export class SpriteManager {
 	 * @returns the image element under the same tag.
 	 */
 	public get(key: string): Sprite {
-		return this.sprites.get(key);
+		return this.sprites.get(key) as Sprite;
 	}
 	
 }

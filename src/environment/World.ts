@@ -19,12 +19,10 @@ import { HUD } from "./HUD.js";
  * height and the gravity. Those can actually be changing variables,
  * but in this game they should stay constant.
  */
-export class WorldInfo {
-	
-	public readonly groundHeight: number;
-	public readonly gravity: Vector2D;
-	public readonly spawnPoint: Vector2D;
-	
+export interface WorldInfo {
+	groundHeight: number;
+	gravity: Vector2D;
+	spawnPoint: Vector2D;
 }
 
 /**

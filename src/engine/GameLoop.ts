@@ -26,7 +26,7 @@ type VoidFunc = () => void;
  */
 export class GameLoop {
 	
-	private static _instance: GameLoop = undefined;
+	private static _instance?: GameLoop = undefined;
 	
 	public static get instance() {
 		if (GameLoop._instance == undefined)
@@ -40,9 +40,9 @@ export class GameLoop {
 	private static msToUpdate = 1000 / GameLoop.updateRate;
 	
 	// The update function.
-	private update: VoidFunc;
+	private update?: VoidFunc;
 	// The render function.
-	private render: VoidFunc;
+	private render?: VoidFunc;
 	
 	// variables for keeping track of the loop.
 	private deltaTime: number;
@@ -93,6 +93,11 @@ export class GameLoop {
 		
 		const looper = GameLoop.instance;
 		
+		if (!looper.update || !looper.render) {
+			console.error("Undefined update or render function, game loop is not set.");
+			return;
+		}
+		
 		looper.nowTime = timestamp;
 		looper.deltaTime += (looper.nowTime - looper.lastTime) / GameLoop.msToUpdate;
 		looper.lastTime = looper.nowTime;
@@ -135,7 +140,7 @@ export class GameLoop {
 		this.update = update;
 	}
 	
-	public get updateFunction(): VoidFunc {
+	public get updateFunction(): VoidFunc | undefined {
 		return this.update;
 	}
 	
@@ -143,7 +148,7 @@ export class GameLoop {
 		this.render = render;
 	}
 	
-	public get renderFunction(): VoidFunc {
+	public get renderFunction(): VoidFunc | undefined {
 		return this.render;
 	}
 	

@@ -1,0 +1,30 @@
+{
+  "name": "dinogamets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "",
+    "website": "tsc && cp -r res public/res && npx http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NubPaws/DinoGameTS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NubPaws/DinoGameTS/issues"
+  },
+  "homepage": "https://github.com/NubPaws/DinoGameTS#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}

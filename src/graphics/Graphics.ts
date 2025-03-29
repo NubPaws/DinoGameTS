@@ -23,7 +23,7 @@ export class Graphics {
 	 */
 	constructor(canvasID: string) {
 		this._canvas = document.getElementById(canvasID) as HTMLCanvasElement;
-		this._ctx = this.canvas.getContext("2d");
+		this._ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
 		
 		this._width = this.canvas.width;
 		this._height = this.canvas.height;
