@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "",
-    "website": "tsc && cp -r res public/res && npx http-server"
+    "start": "tsc && cp -r res public/res && npx http-server"
   },
   "repository": {
     "type": "git",
